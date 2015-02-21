@@ -1,10 +1,14 @@
 # findmyanswer - Quite simple implementation of Spring Data JPA with RESTfull webapp
 
 ## How to Install and Run
-mvn clean install <return>
-mvn jetty-run war <return>
-Create your local db with etc/initdb.sql file <return>
+mvn clean install
+
+mvn jetty-run war
+
+Create your local db with etc/initdb.sql file
+
 sh etc/initial-data.sh <return>
+
 http://localhost:8080/questions <return>
 
 ## Used Technologies
