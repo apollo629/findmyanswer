@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Configuration status="ERROR">
+    <Properties>
+        <Property name="log.directory">target/logs</Property>
+        <Property name="output_file">output</Property>
+    </Properties>
+    <Appenders>
+        <RollingFile name="OUTPUT" fileName="${sys:log.directory}/${output_file}.log"
+                     filePattern="${sys:log.directory}/${output_file}-%d{dd-MM-yyyy}.log">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%thread] %c{1.}:%line - %msg %ex%n"/>
+            <Policies>
+                <TimeBasedTriggeringPolicy interval="1"/>
+            </Policies>
+        </RollingFile>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="%d{ISO8601} %-5level [%thread] %c{1.}:%line - %msg %ex%n"/>
+        </Console>
+    </Appenders>
+    <Loggers>
+        <logger name="com.apollo" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="org.springframework.integration" level="DEBUG" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="org.springframework" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+        </logger>
+        <logger name="com.mchange.v2" level="INFO" additivity="false">
+            <AppenderRef ref="Console"/>
+
+        <Root level="DEBUG">
+            <AppenderRef ref="Console"/>
+        </Root>
+    </Loggers>
+</Configuration>

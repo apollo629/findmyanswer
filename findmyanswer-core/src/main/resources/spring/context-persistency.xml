@@ -1,0 +1,74 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context
+		http://www.springframework.org/schema/context/spring-context.xsd
+		http://www.springframework.org/schema/beans
+		http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/data/jpa
+        http://www.springframework.org/schema/data/jpa/spring-jpa.xsd
+        ">
+
+    <context:annotation-config/>
+    <jpa:repositories base-package="com.apollo.persistency"/>
+
+
+    <context:property-placeholder location="classpath:properties/database.properties"
+                                  ignore-resource-not-found="true" ignore-unresolvable="true" order="1"/>
+
+
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${database.connection.driver}"/>
+        <property name="jdbcUrl" value="${database.connection.url}"/>
+        <property name="user" value="${database.connection.username}"/>
+        <property name="password" value="${database.connection.password}"/>
+        <property name="initialPoolSize" value="${database.connection.initialPoolSize}"/>
+        <property name="minPoolSize" value="${database.connection.minPoolSize}"/>
+        <property name="maxPoolSize" value="${database.connection.maxPoolSize}"/>
+        <property name="idleConnectionTestPeriod"
+                  value="${database.connection.idleConnectionTestPeriod}"/>
+        <property name="preferredTestQuery" value="${database.connection.preferredTestQuery}"/>
+        <property name="acquireIncrement" value="${database.connection.acquireIncrement}"/>
+        <property name="maxStatements" value="${database.connection.maxStatements}"/>
+        <property name="numHelperThreads" value="${database.connection.numHelperThreads}"/>
+        <property name="maxStatementsPerConnection"
+                  value="${database.connection.maxStatementsPerConnection}"/>
+    </bean>
+
+
+    <bean class="org.springframework.orm.jpa.JpaTransactionManager" id="transactionManager">
+        <property name="entityManagerFactory"
+                  ref="entityManagerFactory"/>
+        <property name="jpaDialect">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaDialect"/>
+        </property>
+    </bean>
+
+    <bean id="entityManagerFactory"
+          class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <property name="dataSource" ref="dataSource"/>
+        <property name="packagesToScan" value="${packages.to.scan}"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+                <property name="generateDdl" value="true"/>
+                <property name="showSql" value="false"/>
+                <property name="databasePlatform" value="${database.dialect}"/>
+            </bean>
+        </property>
+        <property name="jpaProperties">
+            <value>
+                hibernate.cache.use_second_level_cache = false
+                <!--hibernate.cache.region.factory_class = org.hibernate.cache.ehcache.EhCacheRegionFactory-->
+                hibernate.cache.use_query_cache = false
+                hibernate.generate_statistics = ${database.generate_statistics}
+                hibernate.hbm2ddl.auto=${database.hbm2ddl}
+            </value>
+        </property>
+    </bean>
+
+
+</beans>
