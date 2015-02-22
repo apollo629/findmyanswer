@@ -7,8 +7,10 @@ import org.springframework.data.repository.CrudRepository
  */
 interface QuestionDao extends CrudRepository<Question,Long> {
 
-    Question findByTopic(String topic)
+    List<Question> findByTopic(String topic)
 
     Question findTop1ByTopicOrderByCreatedDesc(String topic)
+
+    Long countByTopic(String topic)
 
 }

@@ -3,10 +3,16 @@ package com.apollo.persistency
 import groovy.transform.EqualsAndHashCode
 import groovy.transform.ToString
 
+import javax.persistence.CascadeType
 import javax.persistence.Column
 import javax.persistence.Entity
+import javax.persistence.FetchType
+import javax.persistence.ForeignKey
 import javax.persistence.GeneratedValue
 import javax.persistence.Id
+import javax.persistence.JoinColumn
+import javax.persistence.ManyToOne
+import javax.persistence.OneToMany
 import javax.persistence.PrePersist
 import javax.persistence.Table
 import javax.validation.constraints.NotNull
@@ -16,7 +22,7 @@ import javax.validation.constraints.NotNull
  */
 @Entity
 @EqualsAndHashCode
-@ToString(includeFields = true)
+@ToString(includeFields = true, includeSuper = true, includeNames = true)
 @Table(name = "question_base")
 class Question extends TimestampedEntity{
 
@@ -60,16 +66,5 @@ class Question extends TimestampedEntity{
     void setDescription(String description) {
         this.description = description
     }
-
-    String getAnswer() {
-        return answer
-    }
-
-    void setAnswer(String answer) {
-        this.answer = answer
-    }
-    @Column
-
-    private String answer
 
 }
