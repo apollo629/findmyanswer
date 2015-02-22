@@ -1,9 +1,10 @@
-# findmyanswer - Quite simple implementation of Spring Data JPA with RESTfull webapp
+# findmyanswer
+# Quite simple implementation of Spring Data JPA with RESTfull webapp
 
 ## How to Install and Run
 mvn clean install
 
-mvn jetty-run war
+mvn jetty:run-war
 
 Create your local db with etc/initdb.sql file
 
