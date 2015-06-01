@@ -1,5 +1,5 @@
 # findmyanswer
-# Quite simple implementation of Spring Data JPA with RESTfull webapp
+# Quite simple implementation of Spring Data JPA with RESTful webapp
 
 ## How to Install and Run
 mvn clean install
