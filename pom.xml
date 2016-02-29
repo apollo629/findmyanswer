@@ -101,6 +101,7 @@
 
         <pluginManagement>
             <plugins>
+                <!--!!!!!!!! Enables the support for tests written in Groovy (src/test/groovy)  as well as for Groovy based classes !!!!!-->
                 <plugin>
                     <groupId>org.codehaus.gmaven</groupId>
                     <artifactId>gmaven-plugin</artifactId>
